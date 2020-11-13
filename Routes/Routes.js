@@ -10,11 +10,15 @@ require('../core/passport-setup');
 var Route = require('../core/Route');
 Routing = new Route();
 
+var Middleware = require('../core/Middleware');
+Middleware = new Middleware();
+
 // Auth middleware that checks if the user is logged in
-const isLoggedIn = (req, res, next) => {
-    // console.log(req.user);
+function isLoggedIn(req, res, next) {
+    // if (req.isAuthenticated())
+    //     return next();
+    // res.redirect('/login');
     if (req.user) {
-        // console.log(req.user);
         next();
     } 
     else {
@@ -22,20 +26,26 @@ const isLoggedIn = (req, res, next) => {
     }
 }
 
-//Home Controls
-app.get('/',isLoggedIn, (req, res, next) => {
-    Routing.Use(req, res, next,{Controller: "Home", Action: "index"})
-});
-
+//Auth
 //Login Controls
 app.get('/login', (req, res) => { 
     res.render('Login/login');
 });
 app.post('/login', passport.authenticate('local',{successRedirect: '/', failureRedirect: '/login', failureFlash: false }));
 
+app.get('/logout', function(req, res){
+    req.logout();
+    res.redirect('/login');
+});
+
 //Register Controls
-app.get('/register', isLoggedIn, (req, res, next) => {
+app.get('/register', Middleware.isLoggedIn, (req, res, next) => {
     Routing.Use(req, res, next,{Controller: "User", Action: "index"})
+});
+
+//Home Controls
+app.get('/',isLoggedIn, (req, res, next) => {
+    Routing.Use(req, res, next,{Controller: "Home", Action: "index"})
 });
 
 module.exports = app;

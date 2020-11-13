@@ -1,9 +1,16 @@
 fs = require('fs');
 var myArgs = process.argv.slice(2);
 
-var controller = "var Module = require('../core/Module.js'); \nvar Model = require('../core/Model'); \nclass " + myArgs + "Model extends Model{ \n \n} \nmodule.exports = " + myArgs + "Model;";
+var model = "var Module = require('../core/Module'); \nvar Model = require('../core/Model'); \nclass " + myArgs + " extends Model{ \n \n} \nmodule.exports = " + myArgs;
 
-fs.writeFile('./Models/'+myArgs+'Model.js',controller, (err) => {
+fs.writeFile('./Models/'+myArgs+'Model.js',model, (err) => {
     if(err) throw err;
     console.log('Model Created');
+});
+
+var init = "const Sequelize = require('sequelize'); \nmodule.exports = sequelize.define('"+ myArgs +"',{ \n \n \n });";
+
+fs.writeFile('./Models/Modelsinit/'+myArgs+'init.js', init, (err) => {
+    if(err) throw err;
+    console.log('Init Created');
 });

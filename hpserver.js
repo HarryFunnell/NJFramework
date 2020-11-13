@@ -1,5 +1,6 @@
 //Load module file
-const Module = require('./core/Module.js')
+const Module = require('./core/Module.js');
+var flash = require('connect-flash');
 
 //Load module's
 const express = Module.express;
@@ -13,9 +14,11 @@ const cookieSession = Module.cookieSession;
 //App Setup
 const app = express();
 
+//boostrap.json
+var Settings = require("./config/bootstrap.json");
+
 //Datbase connection
-const database = require('./Config/database.js');
-const connection = database.Connection;
+require('./src/database/connection');
 
 //Static files
 app.use(express.static('public'));
@@ -30,9 +33,11 @@ app.use(bodyParser.json());
 
 app.use(cookieParser())
 app.use(cookieSession({
-    name: 'HP-session',
-    keys: ['key1', 'key2']
+    name: Settings.ServerSettings.SessionName,
+    keys: [Settings.ServerSettings.SessionKeys.Keyone, Settings.ServerSettings.SessionKeys.Keytwo]
 }));;
+
+app.use(flash());
 
 app.use(csurf({ cookie: true }))
 app.use(function(req, res, next){
@@ -49,14 +54,15 @@ const Router = require('./Routes/Routes');
 app.use(Router);
 
 //Datbase check
-connection.connect((err) =>{
-    if(err){
-        throw err;
-    }
-    console.log('MYSQL Connected');
-});
+// sequelize.authenticate().then(() => {
+//     console.log('Connection established successfully.');
+//   }).catch(err => {
+//     console.error('Unable to connect to the database:', err);
+//   }).finally(() => {
+//     sequelize.close();
+// });
 
 //Server listening on port 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || Settings.ServerSettings.Port;
 
 const server = app.listen(PORT, () => console.log(`Server started on port ${PORT}`));

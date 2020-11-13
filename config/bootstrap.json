@@ -1,0 +1,17 @@
+{
+    "ServerSettings":{
+        "Port": "3000",
+        "SessionName": "HP-session",
+        "SessionKeys":{
+            "Keyone": "key1",
+            "Keytwo": "key2"
+        },
+        "Passportsettings":{
+            "UsernameField": "username",
+            "PassportField": "password"
+        },
+        "development": true,
+        "test": false,
+        "production": false
+    }
+}
