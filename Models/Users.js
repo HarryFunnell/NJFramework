@@ -2,15 +2,17 @@
 var Module = require('../core/Module');
 var Model = require('../core/Model');
 
-class Users extends Model {
+class Users extends Model{
+
     async getname(){
-        try{
-            var Users = this.UseModel('users');
-            console.log(await Users.findAll({raw: true}));
-        }
-        catch(error){
-            console.log(error);
-        }
+        var Users = this.GetModel('users');
+        console.log(await Users.findAll({
+            where:{
+                id: 1
+            },
+            raw: true
+        }));
     }
+
 }
 module.exports = Users;

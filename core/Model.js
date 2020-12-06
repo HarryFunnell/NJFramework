@@ -1,9 +1,11 @@
+//Load module file ../core/Module.js
+var Module = require('./Module.js')
+
 class Model{
-    constructor(Modelname) {
-        this.Modelname = Modelname;
-        // this.ModelLoad();
+    constructor() {
+        
     }
-    UseModel(Models){
+    GetModel(Models){
         var ModelName;
         ModelName = Models.charAt(0).toUpperCase() + Models.slice(1);
         var ModelFile = require('../Models/Modelsinit/' + ModelName + 'init');

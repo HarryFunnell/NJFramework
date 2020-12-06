@@ -4,12 +4,10 @@ var Module = require('../core/Module.js');
 var Controller = require('../core/Controller');
 
 class UserController extends Controller{
-    async index(req, res, next){
+    async index(req, res){
         try{
-            var getUsers = this.GetModel('users');
-            // var useUsers = this.UseModel('users');
-            console.log(await getUsers.getname());
-            // console.log(await useUsers.findAll({raw: true}));
+            var Users = this.GetModel('users');
+            console.log(await Users.getname());
         }
         catch(error){
             console.log(error);

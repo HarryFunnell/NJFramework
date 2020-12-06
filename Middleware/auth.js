@@ -4,11 +4,12 @@ class Auth{
 
     }
     // Auth middleware that checks if the user is logged in
-    isLoggedIn(req, res, next) {
+    handler(req, res) {
         if (req.user) {
-            next();
+            console.log("Logged in");
         } 
         else {
+            console.log('Not logged in');
             res.redirect('/login');
         }
     }

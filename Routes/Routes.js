@@ -10,9 +10,6 @@ require('../core/passport-setup');
 var Route = require('../core/Route');
 Routing = new Route();
 
-var Middleware = require('../core/Middleware');
-Middleware = new Middleware();
-
 // Auth middleware that checks if the user is logged in
 function isLoggedIn(req, res, next) {
     // if (req.isAuthenticated())
@@ -39,13 +36,22 @@ app.get('/logout', function(req, res){
 });
 
 //Register Controls
-app.get('/register', Middleware.isLoggedIn, (req, res, next) => {
-    Routing.Use(req, res, next,{Controller: "User", Action: "index"})
+app.get('/register', (req, res) => {
+    Routing.Use(req, res,{Controller: "User", Action: "index", Middleware: "auth"});
+});
+
+//lights
+app.get('/lighton', (req, res) => {
+    Routing.Use(req, res,{Controller: "User", Action: "lighton", Middleware: "auth"});
+});
+
+app.get('/lightoff', (req, res) => {
+    Routing.Use(req, res,{Controller: "User", Action: "lightoff", Middleware: "auth"});
 });
 
 //Home Controls
-app.get('/',isLoggedIn, (req, res, next) => {
-    Routing.Use(req, res, next,{Controller: "Home", Action: "index"})
+app.get('/', (req, res) => {
+    Routing.Use(req, res,{Controller: "Home", Action: "index", Middleware: "auth"});
 });
 
 module.exports = app;
