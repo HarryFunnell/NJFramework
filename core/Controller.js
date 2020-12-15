@@ -9,8 +9,9 @@ class Controller{
         var ModelName;
         ModelName = Models.charAt(0).toUpperCase() + Models.slice(1);
         var ModelFile = require('../Models/' + ModelName);
-        var Model = new ModelFile(Models);
-        return Model;
+        return ModelFile;
+        // var Model = new ModelFile(Models);
+        // return Model;
     }
 
     getdate(){

@@ -3,14 +3,12 @@ const config = require("../../config/config.json");
 const bootstrap = require("../../config/bootstrap.json");
 
 if(bootstrap.ServerSettings.development === true){
-    console.log("Development");
     var DBName = config.development.database;
     var UserName = config.development.username;
     var Password = config.development.password;
     var Dialect = config.development.dialect;
 }
 else if(bootstrap.ServerSettings.test === true) {
-    console.log("Test");
     var DBName = config.test.database;
     var UserName = config.test.username;
     var Password = config.test.password;
@@ -18,7 +16,6 @@ else if(bootstrap.ServerSettings.test === true) {
 
 }
 else{
-    console.log("production");
     var DBName = config.production.database;
     var UserName = config.production.username;
     var Password = config.production.password;

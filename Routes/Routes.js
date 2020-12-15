@@ -10,18 +10,8 @@ require('../core/passport-setup');
 var Route = require('../core/Route');
 Routing = new Route();
 
-// Auth middleware that checks if the user is logged in
-function isLoggedIn(req, res, next) {
-    // if (req.isAuthenticated())
-    //     return next();
-    // res.redirect('/login');
-    if (req.user) {
-        next();
-    } 
-    else {
-        res.redirect('/login');
-    }
-}
+//favicon
+app.use('/favicon.io', express.static('Images/favicon.ico'));
 
 //Auth
 //Login Controls
@@ -37,21 +27,17 @@ app.get('/logout', function(req, res){
 
 //Register Controls
 app.get('/register', (req, res) => {
-    Routing.Use(req, res,{Controller: "User", Action: "index", Middleware: "auth"});
-});
-
-//lights
-app.get('/lighton', (req, res) => {
-    Routing.Use(req, res,{Controller: "User", Action: "lighton", Middleware: "auth"});
-});
-
-app.get('/lightoff', (req, res) => {
-    Routing.Use(req, res,{Controller: "User", Action: "lightoff", Middleware: "auth"});
+    Routing.Use(req, res,{Controller: "User", Action: "index"});
 });
 
 //Home Controls
 app.get('/', (req, res) => {
     Routing.Use(req, res,{Controller: "Home", Action: "index", Middleware: "auth"});
+});
+
+//error page
+app.get('*', function(req, res){
+    console.log("Error 404");
 });
 
 module.exports = app;

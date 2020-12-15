@@ -53,15 +53,6 @@ const Router = require('./Routes/Routes');
 
 app.use(Router);
 
-//Datbase check
-// sequelize.authenticate().then(() => {
-//     console.log('Connection established successfully.');
-//   }).catch(err => {
-//     console.error('Unable to connect to the database:', err);
-//   }).finally(() => {
-//     sequelize.close();
-// });
-
 //Server listening on port 
 const PORT = process.env.PORT || Settings.ServerSettings.Port;
 

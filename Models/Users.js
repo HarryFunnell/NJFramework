@@ -3,16 +3,21 @@ var Module = require('../core/Module');
 var Model = require('../core/Model');
 
 class Users extends Model{
-
+    constructor(){
+        super();
+        this.Users = super.GetModel('users');
+    }
+    
     async getname(){
-        var Users = this.GetModel('users');
-        console.log(await Users.findAll({
+        return await this.Users.findAll({
             where:{
-                id: 1
+                id: 2
             },
             raw: true
-        }));
+        });
     }
 
 }
-module.exports = Users;
+
+module.exports = new Users();
+

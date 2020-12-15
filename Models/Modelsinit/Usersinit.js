@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
 
-module.exports = sequelize.define('Users',{
+var Users = sequelize.define('Users',{
 
     id: {
         autoIncrement: true,
@@ -47,3 +47,5 @@ module.exports = sequelize.define('Users',{
         defaultValue: 'active'
     }
 });
+
+module.exports = Users;

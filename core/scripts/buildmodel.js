@@ -1,9 +1,9 @@
 fs = require('fs');
 var myArgs = process.argv.slice(2);
 
-var model = "var Module = require('../core/Module'); \nvar Model = require('../core/Model'); \nclass " + myArgs + " extends Model{ \n \n} \nmodule.exports = " + myArgs;
+var model = "var Module = require('../core/Module'); \nvar Model = require('../core/Model'); \nclass " + myArgs + " extends Model{ \n \n} \nmodule.exports = new " + myArgs +"();";
 
-fs.writeFile('./Models/'+myArgs+'Model.js',model, (err) => {
+fs.writeFile('./Models/'+myArgs+'.js',model, (err) => {
     if(err) throw err;
     console.log('Model Created');
 });
